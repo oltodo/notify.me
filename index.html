@@ -4,31 +4,130 @@
     <meta charset="utf-8">
     <title>notify.me</title>
     
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet/less" type="text/css" href="src/less/notify-me.less" />
+    <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,300,200,700" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css">
+    <link rel="stylesheet/less" type="text/css" href="bower_components/notify.me/src/less/notify-me.less" />
+    <link rel="stylesheet/less" type="text/css" href="less/main.less" />
 
     <script src="bower_components/jquery/jquery.min.js"></script>
     <script src="bower_components/less/dist/less-1.4.2.min.js"></script>
-    <script src="src/js/notify-me.js"></script>
+    <script src="bower_components/notify.me/src/js/notify-me.js"></script>
+    <script src="bower_components/highlightjs/highlight.pack.js"></script>
+
+    <script>
+    var code = function (language) {
+        var content = '';
+
+        content += '<pre><code class="'+language+'">';
+
+        var escape = function(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        };
+
+        return {
+
+            line: function(str) {
+                content += escape(str);
+                return this;
+            },
+
+            end: function() {
+                content += '</code></pre>';
+                document.write(content);
+            }
+        };
+    };
+    </script>
 </head>
 <body>
 
 
-    <div class="container">
-        <div class="page-header">
-            <h1>notify.me</h1>
+    <header>
+        <div class="container">
+            <div id="title" class="clearfix">
+                <span>notify</span>
+                <span>.me</span>
+            </div>
+
+            <div id="baseline">
+                a simple and smart javascript notification api
+            </div>
         </div>
+    </header>
+
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Getting started</h1>
+        </div>
+
+        <p>
+
+        <script>
+        code('html')
+            .line('<link rel="stylesheet" href="path/to/notify-me.min.css">')
+            .end();
+        </script>
+
+        <script>
+        code('html')
+            .line('<'+'script src="path/to/notify-me.min.js"><'+'/script>')
+            .end();
+        </script>
+
     </div>
 
-    <script>
-    $.notify.info('I am an info', 'This is the text of my notice');
-    $.notify.error('A big error !');
 
-    $.notify.success('Good !', 'Everything feel right !', {
-        stack: 'topright',
-        icon: null
-    });
+
+
+    <script>
+    (function() {
+
+        var $window = $(window),
+            w       = 0,
+            h       = 0,
+            rgb     = [],
+
+        getWidth = function () {
+            w = $window.width();
+            h = $window.height();
+        };
+
+        $window.resize(getWidth).mousemove(function(e) {
+            
+            rgb = [
+                Math.round(e.pageX/w * 255),
+                Math.round(e.pageY/h * 255),
+                150
+            ];
+            
+            $('#title span+span').css('background-color','rgb('+rgb.join(',')+')');
+            
+        }).resize();
+
+    })();
+
+
+    // Welcome notice
+    setTimeout(function() {
+        $.notify.info('Welcome on notify.me page', {
+            stack: 'topright'
+        });
+    }, 1000);
+    
+    hljs.initHighlightingOnLoad();
+
+    // $.notify.error('A big error !');
+
+    // $.notify.success('Good !', 'Everything feel right !', {
+    //     stack: 'topright',
+    //     icon: null
+    // });
     </script>
 </body>
 </html>

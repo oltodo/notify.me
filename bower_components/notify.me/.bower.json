@@ -1,0 +1,14 @@
+{
+  "name": "notify.me",
+  "homepage": "https://github.com/oltodo/notify.me",
+  "_release": "4e3e91ffa1",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4e3e91ffa1c32f157513022667bf3f3090913082"
+  },
+  "_source": "git@github.com:oltodo/notify.me.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:oltodo/notify.me.git",
+  "_direct": true
+}

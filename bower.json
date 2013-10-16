@@ -12,6 +12,8 @@
     "jquery": "~2.0.3",
     "normalize-css": "~2.1.3",
     "less": "~1.4.2",
-    "bootstrap": "~3.0.0"
+    "bootstrap": "~3.0.0",
+    "notify.me": "git@github.com:oltodo/notify.me.git",
+    "highlightjs": "~7.3.0"
   }
 }
