@@ -32,7 +32,7 @@
         return {
 
             line: function(str) {
-                content += escape(str);
+                content += escape(str)+"\n";
                 return this;
             },
 
@@ -46,40 +46,106 @@
 </head>
 <body>
 
+    <div id="wrapper">
+        <header>
+            <div class="container">
+                <div id="title" class="clearfix">
+                    <span>notify</span>
+                    <span>.me</span>
+                </div>
 
-    <header>
+                <div id="baseline">
+                    a simple and smart javascript notification api.
+                </div>
+            </div>
+        </header>
+
         <div class="container">
-            <div id="title" class="clearfix">
-                <span>notify</span>
-                <span>.me</span>
+
+            <div class="page-header">
+                <h1>Getting started</h1>
             </div>
 
-            <div id="baseline">
-                a simple and smart javascript notification api
+            <script>
+            code('html')
+                .line('<link rel="stylesheet" href="path/to/notify-me.min.css">')
+                .end();
+            </script>
+
+            <script>
+            code('html')
+                .line('<'+'script src="path/to/notify-me.min.js"><'+'/script>')
+                .end();
+            </script>
+
+
+
+            <div class="page-header">
+                <h1>Basic usages</h1>
             </div>
+
+            <p>A simple <code>info</code> notice type with a simple text.</p>
+
+            <script>
+            code('javascript')
+                // .line('<'+'script>')
+                .line('$.notify.info(\'A simple info notice\');')
+                // .line('</'+'script>')
+                .end();
+            </script>
+
+
+            <p>There are four types of notice :
+            <code>info</code>, <code>warning</code>, <code>success</code> and <code>error</code>.</p>
+
+            <script>
+            ['info','warning','success','error'].forEach(function (e) {
+
+                code('javascript')
+                    .line('$.notify.'+e+'(\'I am a '+e+' notice\');')
+                    .end();
+            })
+            </script>
+
+
+            <p>You can give a title to the notice by specifying a second string argument</p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.info(\'The title\', \'The text\');')
+                .end();
+            </script> 
+
+            <p><b>Note :</b> The title argument must always be specified before the text argument</p>
+
+
+            <div class="page-header">
+                <h1>Advanced use</h1>
+            </div>
+
+            <p>There is a third argument for more options. This must be an object.</p>
+
+            <p>You do not need to use the string type arguments to set the title and the text.
+            You can directly define them in the options argument.</p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.info({')
+                .line('    title:  \'My title\',')
+                .line('    text:  \'My text\'')
+                .line('});')
+                .end();
+            </script>
+
+            <h2>Stack</h2>
+
+            <p>There are several stacks for notices who fit several positions in the window.</p>
+            
+            <p>For the moment, only four stack exists : 
+            <code>top-left</code>, <code>top-right</code>, <code>bottom-right</code> and <code>bottom-left</code></p>
+
+            <h2>Icon</h2>
         </div>
-    </header>
-
-    <div class="container">
-
-        <div class="page-header">
-            <h1>Getting started</h1>
-        </div>
-
-        <p>
-
-        <script>
-        code('html')
-            .line('<link rel="stylesheet" href="path/to/notify-me.min.css">')
-            .end();
-        </script>
-
-        <script>
-        code('html')
-            .line('<'+'script src="path/to/notify-me.min.js"><'+'/script>')
-            .end();
-        </script>
-
     </div>
 
 
