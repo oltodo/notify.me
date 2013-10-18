@@ -16,8 +16,10 @@
     };
 
     var stacks = {
-        topleft: null,
-        topright: null
+        'top-left': null,
+        'top-right': null,
+        'bottom-left': null,
+        'bottom-right': null,
     }
 
 
@@ -25,7 +27,7 @@
     var Notice = function(type, options) {
 
         // Get stack
-        var stack = Stack.getStack(options.stack || 'topleft');
+        var stack = Stack.getStack(options.stack || 'top-right');
 
 
         // Get icon
