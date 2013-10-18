@@ -1,0 +1,79 @@
+.notifyme-stack {
+  position: fixed;
+  width: 300px;
+}
+.notifyme-stack.ns-topleft {
+  top: 30px;
+  left: 30px;
+}
+.notifyme-stack.ns-topright {
+  top: 30px;
+  right: 30px;
+}
+.notifyme-item {
+  position: relative;
+  padding: 20px;
+  min-height: 100px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  top: -10px;
+  transition: opacity .3s, top .3s;
+}
+.notifyme-item.shown {
+  opacity: 1;
+  top: 0;
+}
+.notifyme-item h3 {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+.notifyme-item p {
+  margin: 0;
+  padding: 0;
+}
+.notifyme-item h3 + p {
+  font-style: italic;
+}
+.notifyme-item .ni-icon {
+  float: left;
+}
+.notifyme-item .ni-icon + p,
+.notifyme-item .ni-icon + h3,
+.notifyme-item .ni-icon + h3 + p {
+  margin-left: 25px;
+}
+.notifyme-item .ni-close {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  margin: -14px -10px 0 0;
+}
+.ni-error {
+  color: white;
+  border-color: #b94a48;
+  background: #b94a48;
+}
+.ni-info {
+  color: white;
+  border-color: #3488c0;
+  background: #3488c0;
+}
+.ni-warning {
+  color: white;
+  border-color: #c09345;
+  background: #c09345;
+}
+.ni-success {
+  color: white;
+  border-color: #468847;
+  background: #468847;
+}

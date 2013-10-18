@@ -27,6 +27,11 @@ module.exports = function(grunt) {
                 }, {
                     src: 'bower_components/highlightjs/highlight.pack.js',
                     dest: 'js/highlight.js',
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/bootstrap/fonts/',
+                    src: '*',
+                    dest: 'fonts/'
                 }]
             }
         },
@@ -38,13 +43,31 @@ module.exports = function(grunt) {
                     "css/notify-me.css": "bower_components/notify.me/src/less/notify-me.less"
                 }
             }
-        }
+        },
+
+        watch: {
+            main: {
+                files: ['**/*.js', '**/*.css'],
+                tasks: ['copy'],
+                options: {
+                    spawn: false,
+                },
+            },
+            less: {
+                files: ['**/*.less'],
+                tasks: ['less'],
+                options: {
+                    spawn: false,
+                },
+            }
+        },
     });
 
     // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    //grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     
     // Default task(s).
     grunt.registerTask('default', ['less', 'copy']);
