@@ -2,16 +2,16 @@
 
     var types = {
         info: {
-            icon: 'glyphicon glyphicon-info-sign'
+            icon: 'icon icon-info'
         },
         warning: {
-            icon: 'glyphicon glyphicon-exclamation-sign'
+            icon: 'icon icon-warning'
         },
         success: {
-            icon: 'glyphicon glyphicon-ok-sign'
+            icon: 'icon icon-success'
         },
         error: {
-            icon: 'glyphicon glyphicon-warning-sign'
+            icon: 'icon icon-error'
         }
     };
 
@@ -33,7 +33,7 @@
         // Get icon
         var icon = types[type].icon;
 
-        if(typeof options.icon !== undefined) {
+        if(typeof options.icon !== 'undefined') {
             icon = options.icon;
         }
 
@@ -67,11 +67,11 @@
         }
 
         if(options.title) {
-            content += '<h3>'+options.title+'</h3>';
+            content += '<p class="ni-title">'+options.title+'</p>';
         }
 
         if(options.text) {
-            content += '<p>'+options.text+'</p>';
+            content += '<p class="ni-text">'+options.text+'</p>';
         }
 
         content += '</div>';
@@ -94,8 +94,6 @@
             close: close
         }
     }
-
-
 
 
 
@@ -142,9 +140,25 @@
     };
 
 
+    $.notify = function() {
+    };
 
+    $.notify.useBootstrap3 = function() {
+        types.info.icon = 'glyphicon glyphicon-info-sign';
+        types.warning.icon = 'glyphicon glyphicon-exclamation-sign';
+        types.success.icon = 'glyphicon glyphicon-ok-sign';
+        types.error.icon = 'glyphicon glyphicon-warning-sign';
 
-    $.notify = {};
+    };
+
+    $.notify.useBootstrap2 = function() {
+        types.info.icon = 'icon-info-sign';
+        types.warning.icon = 'icon-exclamation-sign';
+        types.success.icon = 'icon-ok-sign';
+        types.error.icon = 'icon-warning-sign';
+    };
+
+    $.notify.fontAwesome = $.notify.useBootstrap2;
 
     for(var i in types) {
         $.notify[i] = (function (type) {
