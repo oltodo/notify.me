@@ -22,8 +22,11 @@ module.exports = function(grunt) {
                     src: 'bower_components/jquery/jquery.min.js',
                     dest: 'js/jquery.js',
                 }, {
-                    src: 'bower_components/notify.me/src/js/notify-me.js',
+                    src: 'bower_components/notify.me/dist/js/notify-me.js',
                     dest: 'js/notify-me.js',
+                }, {
+                    src: 'bower_components/notify.me/dist/img/icons.png',
+                    dest: 'img/icons.png',
                 }, {
                     src: 'bower_components/highlightjs/highlight.pack.js',
                     dest: 'js/highlight.js',
@@ -39,8 +42,7 @@ module.exports = function(grunt) {
         less: {
             development: {
                 files: {
-                    "css/main.css": "less/main.less",
-                    "css/notify-me.css": "bower_components/notify.me/src/less/notify-me.less"
+                    "css/main.css": "less/main.less"
                 }
             }
         },

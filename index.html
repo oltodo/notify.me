@@ -4,8 +4,6 @@
     <meta charset="utf-8">
     <title>notify.me</title>
     
-    <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,300,200,700" rel="stylesheet" type="text/css">
-
     <link rel="stylesheet" href="css/highlight.css">
     <link rel="stylesheet" href="css/notify-me.css" />
     <link rel="stylesheet" href="css/main.css" />
@@ -125,7 +123,7 @@
             <p>There is a third argument for more options. This must be an object.</p>
 
             <p>You do not need to use the string type arguments to set the title and the text.
-            You can directly define them in the options argument.</p>
+                You can directly define them in the options argument.</p>
 
             <script>
             code('javascript')
@@ -141,9 +139,40 @@
             <p>There are several stacks for notices who fit several positions in the window.</p>
             
             <p>For the moment, only four stack exists : 
-            <code>top-left</code>, <code>top-right</code>, <code>bottom-right</code> and <code>bottom-left</code></p>
+                <code>top-left</code>, <code>top-right</code>, <code>bottom-right</code> and <code>bottom-left</code></p>
 
             <h2>Icon</h2>
+
+            <div class="page-header">
+                <h1>Bootstrap & FontAwesome compatibility</h1>
+            </div>
+
+            <p>You can make notify.me compatible with Bootstrap 2/3 and FontAwesome
+                by calling the dedicated methods :</p>
+
+            <p><b>For Bootstrap 3 :</b></p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.useBootstrap3();')
+                .end();
+            </script>
+
+            <p><b>For Bootstrap 2 :</b></p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.useBootstrap2();')
+                .end();
+            </script>
+
+            <p><b>For FontAwesome :</b></p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.useFontAwesome();')
+                .end();
+            </script>
         </div>
     </div>
 
@@ -177,22 +206,17 @@
 
     })();
 
+    //$.notify.useBootstrap3();
 
     // Welcome notice
     setTimeout(function() {
-        $.notify.info('Welcome on notify.me page', {
-            stack: 'topright'
+        $.notify.info('Hi !', 'Welcome on notify.me page', {
+            //  icon: false
         });
     }, 1000);
     
+    // Init highlight JS
     hljs.initHighlightingOnLoad();
-
-    // $.notify.error('A big error !');
-
-    // $.notify.success('Good !', 'Everything feel right !', {
-    //     stack: 'topright',
-    //     icon: null
-    // });
     </script>
 </body>
 </html>
