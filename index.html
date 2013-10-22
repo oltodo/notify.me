@@ -14,11 +14,10 @@
 
     <script>
     var code = function (language) {
-        var content = '';
+        var lines = [];
+        var test = false;
 
-        content += '<pre><code class="'+language+'">';
-
-        var escape = function(str) {
+        var escape = function (str) {
             return String(str)
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
@@ -28,13 +27,29 @@
 
         return {
 
-            line: function(str) {
-                content += escape(str)+"\n";
+            line: function (str) {
+                lines.push(str);
                 return this;
             },
 
-            end: function() {
+            test: function (trueOrFalse) {
+                test = trueOrFalse;
+                return this;
+            },
+
+            end: function () {
+                var content = '';
+
+                content += '<pre><code class="'+language+'">';
+                content += escape(lines.join("\n"));
                 content += '</code></pre>';
+
+                if(test) {
+                    content += '<div class="clearfix" style="margin-bottom: 10px">';
+                    content += '    <div class="btn btn-default btn-xs pull-right" onclick="'+escape(lines.join(' '))+'">Test it</div>';
+                    content += '</div>';
+                }
+
                 document.write(content);
             }
         };
@@ -85,9 +100,8 @@
 
             <script>
             code('javascript')
-                // .line('<'+'script>')
                 .line('$.notify.info(\'A simple info notice\');')
-                // .line('</'+'script>')
+                .test(true)
                 .end();
             </script>
 
@@ -100,6 +114,7 @@
 
                 code('javascript')
                     .line('$.notify.'+e+'(\'I am a '+e+' notice\');')
+                    .test(true)
                     .end();
             })
             </script>
@@ -110,6 +125,7 @@
             <script>
             code('javascript')
                 .line('$.notify.info(\'The title\', \'The text\');')
+                .test(true)
                 .end();
             </script> 
 
@@ -131,17 +147,50 @@
                 .line('    title:  \'My title\',')
                 .line('    text:  \'My text\'')
                 .line('});')
+                .test(true)
                 .end();
             </script>
 
-            <h2>Stack</h2>
+            <h2>Stacks</h2>
 
             <p>There are several stacks for notices who fit several positions in the window.</p>
             
-            <p>For the moment, only four stack exists : 
-                <code>top-left</code>, <code>top-right</code>, <code>bottom-right</code> and <code>bottom-left</code></p>
+            <p><b>Top & bottom stacks</b></p>
 
-            <h2>Icon</h2>
+            <script>
+            ['top', 'bottom'].forEach(function (e) {
+                code('javascript')
+                    .line('$.notify.info(\'I am on the '+e+' stack !\', {')
+                    .line('    stack:  \''+e+'\',')
+                    .line('});')
+                    .test(true)
+                    .end();
+            });
+            </script>
+
+            <p><b>Corner stacks</b></p>
+
+            <script>
+            ['top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach(function (e) {
+                code('javascript')
+                    .line('$.notify.info(\'I am on the '+e+' corner stack !\', {')
+                    .line('    stack:  \''+e+'\',')
+                    .line('});')
+                    .test(true)
+                    .end();
+            });
+            </script>
+
+            <p><b>Center stack</b></p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.info(\'I am on the center stack !\', {')
+                .line('    stack:  \'center\',')
+                .line('});')
+                .test(true)
+                .end();
+            </script>
 
             <div class="page-header">
                 <h1>Bootstrap & FontAwesome compatibility</h1>
@@ -180,7 +229,7 @@
 
 
     <script>
-    (function() {
+    (function () {
 
         var $window = $(window),
             w       = 0,
@@ -192,7 +241,7 @@
             h = $window.height();
         };
 
-        $window.resize(getWidth).mousemove(function(e) {
+        $window.resize(getWidth).mousemove(function (e) {
             
             rgb = [
                 Math.round(e.pageX/w * 255),
@@ -206,10 +255,10 @@
 
     })();
 
-    //$.notify.useBootstrap3();
+    $.notify.useBootstrap3();
 
     // Welcome notice
-    setTimeout(function() {
+    setTimeout(function () {
         $.notify.info('Hi !', 'Welcome on notify.me page', {
             //  icon: false
         });

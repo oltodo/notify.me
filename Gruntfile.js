@@ -25,6 +25,9 @@ module.exports = function(grunt) {
                     src: 'bower_components/notify.me/dist/js/notify-me.js',
                     dest: 'js/notify-me.js',
                 }, {
+                    src: 'bower_components/notify.me/dist/css/notify-me.css',
+                    dest: 'css/notify-me.css',
+                }, {
                     src: 'bower_components/notify.me/dist/img/icons.png',
                     dest: 'img/icons.png',
                 }, {

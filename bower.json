@@ -13,7 +13,7 @@
     "normalize-css": "~2.1.3",
     "less": "~1.4.2",
     "bootstrap": "~3.0.0",
-    "notify.me": "git@github.com:oltodo/notify.me.git",
+    "notify.me": "~0.2",
     "highlightjs": "~7.3.0"
   }
 }
