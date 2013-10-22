@@ -1,6 +1,6 @@
 {
   "name": "notify.me",
-  "description": "Sim",
+  "description": "A simple and smart javascript notification api",
   "keywords": [
     "notify",
     "notification"
