@@ -4,7 +4,7 @@
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
 
-(function() {
+(function () {
 
     var types = {
         info: {
@@ -22,14 +22,17 @@
     };
 
     var stacks = {
+        'top': null,
         'top-left': null,
         'top-right': null,
+        'bottom': null,
         'bottom-left': null,
-        'bottom-right': null
+        'bottom-right': null,
+        'center': null
     };
 
     // Notice class
-    var notice = function(type, options) {
+    var notice = function (type, options) {
 
         // Get stack
         var stack = Stack.getStack(options.stack || 'top-right');
@@ -45,17 +48,17 @@
 
         // Show method
         var show = function () {
-            $view.addClass('shown');
+            $view.addClass('ni-shown');
         };
 
         // Close method
         var close = function () {
-            $view.animate({
-                top: -1000,
-                opacity: 0
-            }, 300, function() {
+            $view.addClass('ni-hidden');
+
+            setTimeout(function () {
                 $view.remove();
-            });
+                stack._calculPositionsForCenterStack();
+            }, 300);
         };
 
 
@@ -89,8 +92,12 @@
             close();
         });
 
-        // Append view to stack
-        stack.append($view);
+        // Add view to stack
+        if(/^bottom/.test(stack.name)) {
+            stack.prepend($view);
+        } else {
+            stack.append($view);
+        }
 
         setTimeout(show, 10);
 
@@ -138,17 +145,43 @@
             return this;
         },
 
-        append: function ($view) {
-            this.$view.append($view);
+        _add: function (method, $view) {
+
+            this.$view[method]($view);
+            this._calculPositionsForCenterStack();
+
             return this;
+        },
+
+        _calculPositionsForCenterStack: function () {
+            if(this.name != 'center') {
+                return;
+            }
+
+            var height = this.$view.height();
+            var width = this.$view.width();
+
+            this.$view
+                .css({
+                    marginTop: '-'+(height/2)+'px',
+                    marginLeft: '-'+(width/2)+'px'
+                });
+        },
+
+        append: function ($view) {
+            return this._add('append', $view);
+        },
+
+        prepend: function ($view) {
+            return this._add('prepend', $view);
         }
     };
 
 
-    $.notify = function() {
+    $.notify = function () {
     };
 
-    $.notify.useBootstrap3 = function() {
+    $.notify.useBootstrap3 = function () {
         types.info.icon = 'glyphicon glyphicon-info-sign';
         types.warning.icon = 'glyphicon glyphicon-exclamation-sign';
         types.success.icon = 'glyphicon glyphicon-ok-sign';
@@ -156,14 +189,14 @@
 
     };
 
-    $.notify.useBootstrap2 = function() {
+    $.notify.useBootstrap2 = function () {
         types.info.icon = 'icon-info-sign';
         types.warning.icon = 'icon-exclamation-sign';
         types.success.icon = 'icon-ok-sign';
         types.error.icon = 'icon-warning-sign';
     };
 
-    $.notify.fontAwesome = $.notify.useBootstrap2;
+    $.notify.useFontAwesome = $.notify.useBootstrap2;
 
     /**
      * Return the function to call for one type
