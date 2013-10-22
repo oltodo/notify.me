@@ -188,8 +188,8 @@ module.exports = function(grunt) {
             'exec:git_add',
             'exec:git_commit:' + version,
             'exec:git_tag:' + version,
-            'exec:git_push',
-            'exec:publish_assets'
+            'exec:git_push'/*,
+            'exec:publish_assets'*/
         ]);
     });
 
