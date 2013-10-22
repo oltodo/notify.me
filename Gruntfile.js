@@ -1,13 +1,14 @@
 var semver   = require('semver'),
     f        = require('util').format,
     jsFiles  = [
-        'src/js/notify-me.js',
+        '<%= srcDir %>/js/notify-me.js'
     ];
 
 module.exports = function(grunt) {
     grunt.initConfig({
         version: grunt.file.readJSON('package.json').version,
 
+        srcDir: 'src',
         buildDir: 'dist',
 
         banner: [
@@ -17,6 +18,8 @@ module.exports = function(grunt) {
             ' * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT',
             ' */\n\n'
         ].join('\n'),
+
+        clean: ['<%= buildDir %>/*'],
 
         uglify: {
             options: {
@@ -30,7 +33,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: jsFiles,
-                dest: '<%= buildDir %>/notify-me.js'
+                dest: '<%= buildDir %>/js/notify-me.js'
             },
             jsmin: {
                 options: {
@@ -38,7 +41,34 @@ module.exports = function(grunt) {
                     compress: true
                 },
                 src: jsFiles,
-                dest: '<%= buildDir %>/notify-me.min.js'
+                dest: '<%= buildDir %>/js/notify-me.min.js'
+            }
+        },
+
+        less: {
+            all: {
+                files: {
+                    '<%= buildDir %>/css/notify-me.css': '<%= srcDir %>/less/main.less'
+                }
+            }
+        },
+
+        cssmin: {
+            combine: {
+                files: {
+                    '<%= buildDir %>/css/notify-me.min.css': '<%= buildDir %>/css/notify-me.css'
+                }
+            }
+        },
+
+        imagemin: {
+            'static': {
+                options: {
+                    optimizationLevel: 3
+                },
+                files: {
+                    '<%= buildDir %>/img/icons.png': '<%= srcDir %>/img/icons.png'
+                }
             }
         },
 
@@ -118,10 +148,6 @@ module.exports = function(grunt) {
             }
         },
 
-        clean: {
-            dist: 'dist'
-        },
-
         connect: {
             server: {
                 options: {
@@ -136,6 +162,9 @@ module.exports = function(grunt) {
                 { grunt: true, args: ['watch'] }
             ]
         }
+    });
+
+    grunt.registerTask('sprite', 'Build the sprite', function() {
     });
 
     grunt.registerTask('release', 'Ship it.', function(version) {
@@ -200,7 +229,7 @@ module.exports = function(grunt) {
     // -------
 
     grunt.registerTask('default', 'build');
-    grunt.registerTask('build', ['uglify', 'sed:version']);
+    grunt.registerTask('build', ['clean', 'uglify', 'sed:version', 'less', 'cssmin', 'imagemin']);
     grunt.registerTask('server', 'connect:server');
     grunt.registerTask('lint', 'jshint');
     grunt.registerTask('test', 'jasmine:js');
@@ -220,4 +249,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
+    grunt.loadNpmTasks('grunt-contrib-less');
 };
