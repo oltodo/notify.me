@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.1.1
+ * notify.me 0.2.0
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -21,10 +21,13 @@
             }
         };
         var stacks = {
+            top: null,
             "top-left": null,
             "top-right": null,
+            bottom: null,
             "bottom-left": null,
-            "bottom-right": null
+            "bottom-right": null,
+            center: null
         };
         var notice = function(type, options) {
             var stack = Stack.getStack(options.stack || "top-right");
@@ -33,15 +36,14 @@
                 icon = options.icon;
             }
             var show = function() {
-                $view.addClass("shown");
+                $view.addClass("ni-shown");
             };
             var close = function() {
-                $view.animate({
-                    top: -1e3,
-                    opacity: 0
-                }, 300, function() {
+                $view.addClass("ni-hidden");
+                setTimeout(function() {
                     $view.remove();
-                });
+                    stack._calculPositionsForCenterStack();
+                }, 300);
             };
             var content = "";
             content += '<div class="notifyme-item ni-' + type + '">';
@@ -62,7 +64,11 @@
             $view.find(".ni-close").on("click", function() {
                 close();
             });
-            stack.append($view);
+            if (/^bottom/.test(stack.name)) {
+                stack.prepend($view);
+            } else {
+                stack.append($view);
+            }
             setTimeout(show, 10);
             return {
                 show: show,
@@ -94,9 +100,27 @@
                 this.$view = $(content);
                 return this;
             },
-            append: function($view) {
-                this.$view.append($view);
+            _add: function(method, $view) {
+                this.$view[method]($view);
+                this._calculPositionsForCenterStack();
                 return this;
+            },
+            _calculPositionsForCenterStack: function() {
+                if (this.name != "center") {
+                    return;
+                }
+                var height = this.$view.height();
+                var width = this.$view.width();
+                this.$view.css({
+                    marginTop: "-" + height / 2 + "px",
+                    marginLeft: "-" + width / 2 + "px"
+                });
+            },
+            append: function($view) {
+                return this._add("append", $view);
+            },
+            prepend: function($view) {
+                return this._add("prepend", $view);
             }
         };
         $.notify = function() {};
@@ -112,7 +136,7 @@
             types.success.icon = "icon-ok-sign";
             types.error.icon = "icon-warning-sign";
         };
-        $.notify.fontAwesome = $.notify.useBootstrap2;
+        $.notify.useFontAwesome = $.notify.useBootstrap2;
         var getTypeFunction = function(type) {
             return function() {
                 var args = arguments;
