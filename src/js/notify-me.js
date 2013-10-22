@@ -1,4 +1,10 @@
-(function ($) {
+/*
+ * notify.me
+ * https://github.com/oltodo/notify.me
+ * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
+ */
+
+(function() {
 
     var types = {
         info: {
@@ -19,12 +25,11 @@
         'top-left': null,
         'top-right': null,
         'bottom-left': null,
-        'bottom-right': null,
-    }
-
+        'bottom-right': null
+    };
 
     // Notice class
-    var Notice = function(type, options) {
+    var notice = function(type, options) {
 
         // Get stack
         var stack = Stack.getStack(options.stack || 'top-right');
@@ -92,8 +97,8 @@
         return {
             show: show,
             close: close
-        }
-    }
+        };
+    };
 
 
 
@@ -103,7 +108,7 @@
     };
 
     Stack.getStack = function (name) {
-        if(typeof stacks[name] == undefined) {
+        if(typeof stacks[name] === 'undefined') {
             throw new Error('Unknown stack `'+name+'`');
         }
 
@@ -160,43 +165,50 @@
 
     $.notify.fontAwesome = $.notify.useBootstrap2;
 
+    /**
+     * Return the function to call for one type
+     * @param  {String} type Type name
+     * @return {Function} The function
+     */
+    var getTypeFunction = function (type) {
+
+        return function () {
+            var args = arguments;
+
+            if(args.length > 3) {
+                throw new Error('Too much arguments');
+            }
+
+            var options = {};
+
+            for(var i in args) {
+                var arg = args[i];
+
+                switch(typeof arg) {
+
+                    case 'string':
+                        if(options.text) {
+                            options.title = options.text;
+                        }
+
+                        options.text = arg;
+                        break;
+
+                    case 'object':
+                        options = $.extend(options, arg);
+                        break;
+
+                    default:
+                        throw new Error('Unknown argument type `'+(typeof arg)+'` of `'+arg+'`');
+                }
+            }
+
+            return notice(type, options);
+        };
+    };
+
     for(var i in types) {
-        $.notify[i] = (function (type) {
-
-            return function () {
-                var args = arguments;
-
-                if(args.length > 3) {
-                    throw new Error('Too much arguments');
-                }
-
-                var options = {};
-
-                for(var i in args) {
-                    var arg = args[i];
-
-                    switch(typeof arg) {
-
-                        case 'string':
-                            if(options.text) {
-                                options.title = options.text;
-                            }
-
-                            options.text = arg;
-                            break;
-
-                        case 'object':
-                            options = $.extend(options, arg);
-                            break;
-
-                        default:
-                            throw new Error('Unknown argument type `'+(typeof arg)+'` of `'+arg+'`');
-                    }
-                }
-
-                return Notice(type, options);
-            };
-        })(i);
+        $.notify[i] = getTypeFunction(i);
     }
 
-})(jQuery);
+})();
