@@ -112,6 +112,9 @@
 .notifyme-item.ni-shown {
   opacity: 1;
 }
+.notifyme-item:hover {
+  opacity: .3;
+}
 .notifyme-item.ni-hidden {
   opacity: 0;
   transition-duration: .2s;
