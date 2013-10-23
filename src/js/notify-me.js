@@ -8,16 +8,20 @@
 
     var types = {
         info: {
-            icon: 'icon icon-info'
+            icon: 'icon icon-info',
+            duration: 5 // seconds
         },
         warning: {
-            icon: 'icon icon-warning'
+            icon: 'icon icon-warning',
+            duration: 10 // seconds
         },
         success: {
-            icon: 'icon icon-success'
+            icon: 'icon icon-success',
+            duration: 5 // seconds
         },
         error: {
-            icon: 'icon icon-error'
+            icon: 'icon icon-error',
+            duration: false // no duration
         }
     };
 
@@ -34,15 +38,27 @@
     // Notice class
     var notice = function (type, options) {
 
-        // Get stack
-        var stack = Stack.getStack(options.stack || 'top-right');
+        var
+            stack = Stack.getStack(options.stack || 'top-right'),
+            timer = null;
 
+        // Get type
+        var tmp = type;
+        type = types[tmp];
+        type.name = tmp;
 
         // Get icon
-        var icon = types[type].icon;
+        var icon = type.icon;
 
         if(typeof options.icon !== 'undefined') {
             icon = options.icon;
+        }
+
+        // Get timer
+        var duration = type.duration;
+
+        if(typeof options.duration !== 'undefined') {
+            duration = options.duration;
         }
 
 
@@ -61,11 +77,21 @@
             }, 300);
         };
 
+        var clearTimer = function () {
+            if(timer !== null) {
+                clearTimeout(timer);
+            }
+        };
+
+        var setTimer = function () {
+            clearTimer();
+            timer = setTimeout(close, duration*1000);
+        };
 
         // Init view
         var content = '';
 
-        content += '<div class="notifyme-item ni-'+type+'">';
+        content += '<div class="notifyme-item ni-'+type.name+'">';
         content += '    <span class="ni-close">&times;</span>';
 
         if(icon) {
@@ -86,11 +112,16 @@
 
         var $view = $(content);
 
-
         // Set events
         $view.find('.ni-close').on('click', function () {
             close();
         });
+
+        // Set duration
+        if(duration) {
+            setTimer();
+            $view.hover(clearTimer, setTimer);
+        }
 
         // Add view to stack
         if(/^bottom/.test(stack.name)) {
