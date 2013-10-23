@@ -1,0 +1,22 @@
+{
+  "name": "notify.me",
+  "version": "0.2.2",
+  "homepage": "http://oltodo.github.io/notify.me/",
+  "authors": [
+    "Nicolas Bazille <oltodo@msn.com>"
+  ],
+  "description": "A simple and smart javascript notification api",
+  "main": "[dist/js/notify-me.min.js, dist/css/notify-me.min.css]",
+  "keywords": [
+    "notify",
+    "notification"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
