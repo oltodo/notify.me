@@ -8,16 +8,20 @@
     (function() {
         var types = {
             info: {
-                icon: "icon icon-info"
+                icon: "icon icon-info",
+                duration: 5
             },
             warning: {
-                icon: "icon icon-warning"
+                icon: "icon icon-warning",
+                duration: 10
             },
             success: {
-                icon: "icon icon-success"
+                icon: "icon icon-success",
+                duration: 5
             },
             error: {
-                icon: "icon icon-error"
+                icon: "icon icon-error",
+                duration: false
             }
         };
         var stacks = {
@@ -30,10 +34,17 @@
             center: null
         };
         var notice = function(type, options) {
-            var stack = Stack.getStack(options.stack || "top-right");
-            var icon = types[type].icon;
+            var stack = Stack.getStack(options.stack || "top-right"), timer = null;
+            var tmp = type;
+            type = types[tmp];
+            type.name = tmp;
+            var icon = type.icon;
             if (typeof options.icon !== "undefined") {
                 icon = options.icon;
+            }
+            var duration = type.duration;
+            if (typeof options.duration !== "undefined") {
+                duration = options.duration;
             }
             var show = function() {
                 $view.addClass("ni-shown");
@@ -45,8 +56,19 @@
                     stack._calculPositionsForCenterStack();
                 }, 300);
             };
+            var clearTimer = function() {
+                console.log("clear");
+                if (timer !== null) {
+                    clearTimeout(timer);
+                }
+            };
+            var setTimer = function() {
+                clearTimer();
+                console.log("set");
+                timer = setTimeout(close, duration * 1e3);
+            };
             var content = "";
-            content += '<div class="notifyme-item ni-' + type + '">';
+            content += '<div class="notifyme-item ni-' + type.name + '">';
             content += '    <span class="ni-close">&times;</span>';
             if (icon) {
                 content += '    <span class="ni-icon">';
@@ -64,6 +86,10 @@
             $view.find(".ni-close").on("click", function() {
                 close();
             });
+            if (duration) {
+                setTimer();
+                $view.hover(clearTimer, setTimer);
+            }
             if (/^bottom/.test(stack.name)) {
                 stack.prepend($view);
             } else {

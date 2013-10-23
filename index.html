@@ -164,7 +164,7 @@
             ['top', 'bottom'].forEach(function (e) {
                 code('javascript')
                     .line('$.notify.info(\'I am on the '+e+' stack !\', {')
-                    .line('    stack:  \''+e+'\',')
+                    .line('    stack:  \''+e+'\'')
                     .line('});')
                     .test(true)
                     .end();
@@ -177,7 +177,7 @@
             ['top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach(function (e) {
                 code('javascript')
                     .line('$.notify.info(\'I am on the '+e+' corner stack !\', {')
-                    .line('    stack:  \''+e+'\',')
+                    .line('    stack:  \''+e+'\'')
                     .line('});')
                     .test(true)
                     .end();
@@ -189,11 +189,45 @@
             <script>
             code('javascript')
                 .line('$.notify.info(\'I am on the center stack !\', {')
-                .line('    stack:  \'center\',')
+                .line('    stack:  \'center\'')
                 .line('});')
                 .test(true)
                 .end();
             </script>
+
+            <h2>Duration</h2>
+
+            <p>Each type has a default display duration.</p>
+
+            <ul>
+                <li><b>Info :</b> 5 seconds</li>
+                <li><b>Success :</b> 5 seconds</li>
+                <li><b>Warning :</b> 10 seconds</li>
+                <li><b>Error :</b> infinite</li>
+            </ul>
+
+            <p>You can override by setting the option <code>duration</code>, expressed in seconds</p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.info(\'I am a notice is displayed 20 seconds\', {')
+                .line('    duration:  20')
+                .line('});')
+                .test(true)
+                .end();
+            </script>   
+
+            <script>
+            code('javascript')
+                .line('$.notify.info(\'I am a notice is displayed indefinitely\', {')
+                .line('    duration:  false')
+                .line('});')
+                .test(true)
+                .end();
+            </script>            
+
+            <p><b>Note :</b> When you put your mouse over the notification, it will never disappear automatically.
+                However, when you take your mouse, the timer will be restarted.</p>
 
             <div class="page-header">
                 <h1>Bootstrap & FontAwesome compatibility</h1>
