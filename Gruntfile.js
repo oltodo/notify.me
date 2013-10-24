@@ -37,8 +37,16 @@ module.exports = function(grunt) {
                     src: 'bower_components/highlightjs/highlight.pack.js',
                     dest: 'js/highlight.js',
                 }, {
+                    src: 'bower_components/font-awesome/css/font-awesome.min.css',
+                    dest: 'css/font-awesome.css',
+                }, {
                     expand: true,
                     cwd: 'bower_components/bootstrap/fonts/',
+                    src: '*',
+                    dest: 'fonts/'
+                }, {
+                    expand: true,
+                    cwd: 'bower_components/font-awesome/fonts/',
                     src: '*',
                     dest: 'fonts/'
                 }]

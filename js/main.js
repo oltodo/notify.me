@@ -74,7 +74,7 @@
     })();
 
     // Notify settings
-    $.notify.useBootstrap3();
+    $.notify.useFontAwesome4();
 
     // Welcome notice
     setTimeout(function () {

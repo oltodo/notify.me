@@ -5,6 +5,7 @@
     <title>notify.me</title>
     
     <link rel="stylesheet" href="css/highlight.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/notify-me.css" />
     <link rel="stylesheet" href="css/main.css" />
 
@@ -138,6 +139,8 @@
 
             <script>
             ['top', 'bottom'].forEach(function (e) {
+                document.write('<p>'+e+'</p>');
+
                 code('javascript')
                     .line('$.notify.info(\'I am on the '+e+' stack !\', {')
                     .line('    stack:  \''+e+'\'')
@@ -151,6 +154,8 @@
 
             <script>
             ['top-left', 'top-right', 'bottom-left', 'bottom-right'].forEach(function (e) {
+                document.write('<p>'+e+'</p>');
+
                 code('javascript')
                     .line('$.notify.info(\'I am on the '+e+' corner stack !\', {')
                     .line('    stack:  \''+e+'\'')
@@ -209,16 +214,8 @@
                 <h1>Bootstrap & FontAwesome compatibility</h1>
             </div>
 
-            <p>You can make notify.me compatible with Bootstrap 2/3 and FontAwesome
+            <p>You can make notify.me compatible with Bootstrap 2/3 and FontAwesome <=3/4
                 by calling the dedicated methods :</p>
-
-            <p><b>For Bootstrap 3 :</b></p>
-
-            <script>
-            code('javascript')
-                .line('$.notify.useBootstrap3();')
-                .write();
-            </script>
 
             <p><b>For Bootstrap 2 :</b></p>
 
@@ -228,11 +225,27 @@
                 .write();
             </script>
 
-            <p><b>For FontAwesome :</b></p>
+            <p><b>For Bootstrap 3 :</b></p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.useBootstrap3();')
+                .write();
+            </script>
+
+            <p><b>For FontAwesome <= 3 :</b></p>
 
             <script>
             code('javascript')
                 .line('$.notify.useFontAwesome();')
+                .write();
+            </script>
+
+            <p><b>For FontAwesome 4 :</b></p>
+
+            <script>
+            code('javascript')
+                .line('$.notify.useFontAwesome4();')
                 .write();
             </script>
 
@@ -308,7 +321,7 @@
                     <h3>Result</h3>
                 </div>
 
-                <div id="make" make></div>
+                <div make></div>
             </div>
         </div>
     </div>
