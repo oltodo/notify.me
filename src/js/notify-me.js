@@ -229,6 +229,13 @@
 
     $.notify.useFontAwesome = $.notify.useBootstrap2;
 
+    $.notify.useFontAwesome4 = function () {
+        types.info.icon = 'fa fa-info-circle';
+        types.warning.icon = 'fa fa-exclamation-triangle';
+        types.success.icon = 'fa fa-check-circle';
+        types.error.icon = 'fa fa-exclamation-circle';
+    };
+
     /**
      * Return the function to call for one type
      * @param  {String} type Type name
