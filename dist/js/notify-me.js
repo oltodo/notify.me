@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.2.2
+ * notify.me 0.3.0
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -161,6 +161,12 @@
             types.error.icon = "icon-warning-sign";
         };
         $.notify.useFontAwesome = $.notify.useBootstrap2;
+        $.notify.useFontAwesome4 = function() {
+            types.info.icon = "fa fa-info-circle";
+            types.warning.icon = "fa fa-exclamation-triangle";
+            types.success.icon = "fa fa-check-circle";
+            types.error.icon = "fa fa-exclamation-circle";
+        };
         var getTypeFunction = function(type) {
             return function() {
                 var args = arguments;

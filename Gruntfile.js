@@ -112,7 +112,7 @@ module.exports = function(grunt) {
                 cmd: 'open _SpecRunner.html'
             },
             git_is_clean: {
-                cmd: 'test -z "$(git status --porcelain)"'
+                cmd: 'test -z "$(git status --porcelain src)"'
             },
             git_on_master: {
                 cmd: 'test $(git symbolic-ref --short -q HEAD) = master'
@@ -195,34 +195,34 @@ module.exports = function(grunt) {
 
     grunt.registerTask('manifests', 'Update manifests.', function(version) {
         var _ = grunt.util._,
-                pkg = grunt.file.readJSON('package.json'),
-                component = grunt.file.readJSON('component.json'),
-                jqueryPlugin = grunt.file.readJSON('notify-me.js.jquery.json');
+            pkg = grunt.file.readJSON('package.json'),
+            bower = grunt.file.readJSON('bower.json')/*,
+            jqueryPlugin = grunt.file.readJSON('notify-me.js.jquery.json')*/;
 
-        component = JSON.stringify(_.extend(component, {
+        bower = JSON.stringify(_.extend(bower, {
             name: pkg.name,
             version: version
         }), null, 2);
 
-        jqueryPlugin = JSON.stringify(_.extend(jqueryPlugin, {
-            name: pkg.name,
-            title: pkg.name,
-            version: version,
-            author: pkg.author,
-            description: pkg.description,
-            keywords: pkg.keywords,
-            homepage: pkg.homepage,
-            bugs: pkg.bugs,
-            maintainers: pkg.contributors
-        }), null, 2);
+        // jqueryPlugin = JSON.stringify(_.extend(jqueryPlugin, {
+        //     name: pkg.name,
+        //     title: pkg.name,
+        //     version: version,
+        //     author: pkg.author,
+        //     description: pkg.description,
+        //     keywords: pkg.keywords,
+        //     homepage: pkg.homepage,
+        //     bugs: pkg.bugs,
+        //     maintainers: pkg.contributors
+        // }), null, 2);
 
         pkg = JSON.stringify(_.extend(pkg, {
             version: version
         }), null, 2);
 
         grunt.file.write('package.json', pkg);
-        grunt.file.write('component.json', component);
-        grunt.file.write('notify-me.js.jquery.json', jqueryPlugin);
+        grunt.file.write('bower.json', bower);
+        // grunt.file.write('notify-me.js.jquery.json', jqueryPlugin);
     });
 
     // aliases
