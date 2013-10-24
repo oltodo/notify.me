@@ -14,6 +14,7 @@
     "less": "~1.4.2",
     "bootstrap": "~3.0.0",
     "notify.me": "~0.2",
-    "highlightjs": "~7.3.0"
+    "highlightjs": "~7.3.0",
+    "angular": "~1.0.8"
   }
 }

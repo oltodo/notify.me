@@ -16,6 +16,9 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [{
+                    src: 'bower_components/angular/angular.min.js',
+                    dest: 'js/angular.js',
+                }, {
                     src: 'bower_components/highlightjs/styles/github.css',
                     dest: 'css/highlight.css',
                 }, {

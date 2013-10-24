@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.0.1
+ * notify.me 0.2.2
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -57,14 +57,12 @@
                 }, 300);
             };
             var clearTimer = function() {
-                console.log("clear");
                 if (timer !== null) {
                     clearTimeout(timer);
                 }
             };
             var setTimer = function() {
                 clearTimer();
-                console.log("set");
                 timer = setTimeout(close, duration * 1e3);
             };
             var content = "";
@@ -163,6 +161,7 @@
             types.error.icon = "icon-warning-sign";
         };
         $.notify.useFontAwesome = $.notify.useBootstrap2;
+        $.notify.types = types;
         var getTypeFunction = function(type) {
             return function() {
                 var args = arguments;

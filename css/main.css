@@ -5934,12 +5934,56 @@ td.visible-print {
   font-family: 'Yanone Kaffeesatz', sans-serif;
   font-size: 22px;
   font-weight: 200;
+  margin-bottom: 50px;
 }
 #wrapper p {
   margin: 20px 0 20px;
 }
 #wrapper p code {
   font-size: 16px;
+}
+#wrapper label {
+  font-size: 14px;
+  font-weight: 200;
+}
+#wrapper #stacks {
+  position: relative;
+  height: 200px;
+}
+#wrapper #stacks a {
+  position: absolute;
+  width: 100px;
+}
+#wrapper #stacks a.top-left {
+  top: 10px;
+  left: 10px;
+}
+#wrapper #stacks a.top {
+  top: 10px;
+  left: 50%;
+  margin: 0 0 0 -50px;
+}
+#wrapper #stacks a.top-right {
+  top: 10px;
+  right: 10px;
+}
+#wrapper #stacks a.center {
+  top: 50%;
+  left: 50%;
+  margin: -17px 0 0 -50px;
+}
+#wrapper #stacks a.bottom-left {
+  bottom: 10px;
+  left: 10px;
+}
+#wrapper #stacks a.bottom {
+  bottom: 10px;
+  left: 50%;
+  margin: 0 0 0 -50px;
+}
+#wrapper #stacks a.bottom-right {
+  bottom: 10px;
+  right: 10px;
 }
 header {
   padding: 70px 0;

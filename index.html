@@ -11,50 +11,8 @@
     <script src="js/jquery.js"></script>
     <script src="js/notify-me.js"></script>
     <script src="js/highlight.js"></script>
-
-    <script>
-    var code = function (language) {
-        var lines = [];
-        var test = false;
-
-        var escape = function (str) {
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;');
-        };
-
-        return {
-
-            line: function (str) {
-                lines.push(str);
-                return this;
-            },
-
-            test: function (trueOrFalse) {
-                test = trueOrFalse;
-                return this;
-            },
-
-            end: function () {
-                var content = '';
-
-                content += '<pre><code class="'+language+'">';
-                content += escape(lines.join("\n"));
-                content += '</code></pre>';
-
-                if(test) {
-                    content += '<div class="clearfix" style="margin-bottom: 10px">';
-                    content += '    <div class="btn btn-default btn-xs pull-right" onclick="'+escape(lines.join(' '))+'">Test it</div>';
-                    content += '</div>';
-                }
-
-                document.write(content);
-            }
-        };
-    };
-    </script>
+    <script src="js/angular.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 
@@ -81,13 +39,13 @@
             <script>
             code('html')
                 .line('<link rel="stylesheet" href="path/to/notify-me.min.css">')
-                .end();
+                .write();
             </script>
 
             <script>
             code('html')
                 .line('<'+'script src="path/to/notify-me.min.js"><'+'/script>')
-                .end();
+                .write();
             </script>
 
 
@@ -102,7 +60,7 @@
             code('javascript')
                 .line('$.notify.info(\'A simple info notice\');')
                 .test(true)
-                .end();
+                .write();
             </script>
 
 
@@ -115,7 +73,7 @@
                 code('javascript')
                     .line('$.notify.'+e+'(\'I am a '+e+' notice\');')
                     .test(true)
-                    .end();
+                    .write();
             })
             </script>
 
@@ -126,7 +84,7 @@
             code('javascript')
                 .line('$.notify.info(\'The title\', \'The text\');')
                 .test(true)
-                .end();
+                .write();
             </script> 
 
             <p><b>Note :</b> The title argument must always be specified before the text argument</p>
@@ -148,7 +106,7 @@
                 .line('    text:  \'My text\'')
                 .line('});')
                 .test(true)
-                .end();
+                .write();
             </script>
 
             <h2>Stacks</h2>
@@ -167,7 +125,7 @@
                     .line('    stack:  \''+e+'\'')
                     .line('});')
                     .test(true)
-                    .end();
+                    .write();
             });
             </script>
 
@@ -180,7 +138,7 @@
                     .line('    stack:  \''+e+'\'')
                     .line('});')
                     .test(true)
-                    .end();
+                    .write();
             });
             </script>
 
@@ -192,7 +150,7 @@
                 .line('    stack:  \'center\'')
                 .line('});')
                 .test(true)
-                .end();
+                .write();
             </script>
 
             <h2>Duration</h2>
@@ -214,7 +172,7 @@
                 .line('    duration:  20')
                 .line('});')
                 .test(true)
-                .end();
+                .write();
             </script>   
 
             <script>
@@ -223,7 +181,7 @@
                 .line('    duration:  false')
                 .line('});')
                 .test(true)
-                .end();
+                .write();
             </script>            
 
             <p><b>Note :</b> When you put your mouse over the notification, it will never disappear automatically.
@@ -241,7 +199,7 @@
             <script>
             code('javascript')
                 .line('$.notify.useBootstrap3();')
-                .end();
+                .write();
             </script>
 
             <p><b>For Bootstrap 2 :</b></p>
@@ -249,7 +207,7 @@
             <script>
             code('javascript')
                 .line('$.notify.useBootstrap2();')
-                .end();
+                .write();
             </script>
 
             <p><b>For FontAwesome :</b></p>
@@ -257,52 +215,84 @@
             <script>
             code('javascript')
                 .line('$.notify.useFontAwesome();')
-                .end();
+                .write();
             </script>
+
+            <div ng-app="notifyApp" ng-controller="MakeCtrl">
+                <div class="page-header">
+                    <h1>Make your notify</h1>
+                </div>
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Type</label>
+                        <div class="col-md-2">
+                            <select class="form-control" ng-model="type">
+                                <option value="info">Info</option>
+                                <option value="success">Success</option>
+                                <option value="warning">Warning</option>
+                                <option value="error">Error</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Title</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" ng-model="title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Text</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" ng-model="text"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Stack</label>
+
+                        <div class="col-md-10">
+                            <div id="stacks" class="panel panel-default">
+                                <a class="btn btn-default top-left"     ng-class="{ 'btn-primary': stack == 'top-left' }"     ng-click="toggleStack('top-left')"    >top-left</a>
+                                <a class="btn btn-default top"          ng-class="{ 'btn-primary': stack == 'top' }"          ng-click="toggleStack('top')"         >top</a>
+                                <a class="btn btn-default top-right"    ng-class="{ 'btn-primary': stack == 'top-right' }"    ng-click="toggleStack('top-right')"   >top-right</a>
+                                <a class="btn btn-default center"       ng-class="{ 'btn-primary': stack == 'center' }"       ng-click="toggleStack('center')"      >center</a>
+                                <a class="btn btn-default bottom-left"  ng-class="{ 'btn-primary': stack == 'bottom-left' }"  ng-click="toggleStack('bottom-left')" >bottom-left</a>
+                                <a class="btn btn-default bottom"       ng-class="{ 'btn-primary': stack == 'bottom' }"       ng-click="toggleStack('bottom')"      >bottom</a>
+                                <a class="btn btn-default bottom-right" ng-class="{ 'btn-primary': stack == 'bottom-right' }" ng-click="toggleStack('bottom-right')">bottom-right</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Duration</label>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" value="default" ng-model="duration" />
+                                Default
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" value="infinite" ng-model="duration" />
+                                Infinite
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                                <input type="radio" value="custom" ng-model="duration" />
+                                <span style="display:inline-block">Custom :</span>
+                                <input class="form-control input-sm" type="text" ng-model="duration_value" ng-disabled="duration != 'custom'" style="display:inline-block" />
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="page-header">
+                    <h3>Result</h3>
+                </div>
+
+                <div id="make" make></div>
+            </div>
         </div>
     </div>
-
-
-
-
-    <script>
-    (function () {
-
-        var $window = $(window),
-            w       = 0,
-            h       = 0,
-            rgb     = [],
-
-        getWidth = function () {
-            w = $window.width();
-            h = $window.height();
-        };
-
-        $window.resize(getWidth).mousemove(function (e) {
-            
-            rgb = [
-                Math.round(e.pageX/w * 255),
-                Math.round(e.pageY/h * 255),
-                150
-            ];
-            
-            $('#title span+span').css('background-color','rgb('+rgb.join(',')+')');
-            
-        }).resize();
-
-    })();
-
-    $.notify.useBootstrap3();
-
-    // Welcome notice
-    setTimeout(function () {
-        $.notify.info('Hi !', 'Welcome on notify.me page', {
-            //  icon: false
-        });
-    }, 1000);
-    
-    // Init highlight JS
-    hljs.initHighlightingOnLoad();
-    </script>
 </body>
 </html>
