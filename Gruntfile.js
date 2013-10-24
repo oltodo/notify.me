@@ -118,7 +118,7 @@ module.exports = function(grunt) {
                 cmd: 'test $(git symbolic-ref --short -q HEAD) = master'
             },
             git_add: {
-                cmd: 'git add .'
+                cmd: 'git add dist bower.json package.json'
             },
             git_commit: {
                 cmd: function(m) { return f('git commit -m "%s"', m); }
