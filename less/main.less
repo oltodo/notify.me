@@ -39,14 +39,28 @@
     font-weight: 200;
     margin-bottom: 50px;
 
-    p { margin: 20px 0 20px; }
-    p code { font-size: 16px; }
+    p {
+        margin: 20px 0 20px;
+    }
+    
+    p code {
+        font-size: 16px;
+    }
 
     label {
         font-size: 14px;
         font-weight: 200;
     }
 
+    pre {
+        position: relative;
+
+        code .btn {
+            position: absolute;
+            top: 7px;
+            right: 7px;
+        }
+    }
 
     #stacks { 
         position: relative;
@@ -65,7 +79,6 @@
 
 header {
     padding: 70px 0;
-    //background: #DFCE98;
     font-weight: 200;
 
     #title {
@@ -87,7 +100,6 @@ header {
         font-size: 50px;
         font-weight: 700;
         border-radius: 7px;
-        //box-shadow: 0 0 5px rgba(0,0,0,0.8)
     }
 
     #baseline {

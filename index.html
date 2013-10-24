@@ -36,15 +36,33 @@
                 <h1>Getting started</h1>
             </div>
 
+            <h3>Donwload the latest release</h3>
+
+            <a href="https://github.com/oltodo/notify.me/archive/v0.2.2.zip">
+                https://github.com/oltodo/notify.me/archive/v0.2.2.zip
+            </a>
+
+            <h3>Or install via Bower</h3>
+
             <script>
-            code('html')
-                .line('<link rel="stylesheet" href="path/to/notify-me.min.css">')
+            code()
+                .line('bower install notify.me')
                 .write();
             </script>
 
+            <h3>Load the CSS file</h3>
+
             <script>
             code('html')
-                .line('<'+'script src="path/to/notify-me.min.js"><'+'/script>')
+                .line('<link rel="stylesheet" href="path/to/notify-me/dist/css/notify-me.min.css">')
+                .write();
+            </script>
+
+            <h3>Load the JS file</h3>
+
+            <script>
+            code('html')
+                .line('<'+'script src="path/to/notify-me/dist/notify-me.min.js"><'+'/script>')
                 .write();
             </script>
 

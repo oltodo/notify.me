@@ -5946,6 +5946,14 @@ td.visible-print {
   font-size: 14px;
   font-weight: 200;
 }
+#wrapper pre {
+  position: relative;
+}
+#wrapper pre code .btn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
 #wrapper #stacks {
   position: relative;
   height: 200px;

@@ -1,4 +1,3 @@
-
 (function() {
 
     window.code = function (language) {
@@ -30,13 +29,12 @@
 
                 content += '<pre><code class="'+language+'">';
                 content += escape(lines.join("\n"));
-                content += '</code></pre>';
 
                 if(test) {
-                    content += '<div class="clearfix" style="margin-bottom: 10px">';
-                    content += '    <div class="btn btn-default btn-xs pull-right" onclick="'+escape(lines.join(' '))+'">Test it</div>';
-                    content += '</div>';
+                    content += '<div class="btn btn-link btn-xs" onclick="'+escape(lines.join(' '))+'">Test it</div>';
                 }
+
+                content += '</code></pre>';
 
                 return content;
             },
