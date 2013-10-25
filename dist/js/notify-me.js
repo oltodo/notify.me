@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.4.0
+ * notify.me 0.4.1
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -94,7 +94,6 @@
             }
             setTimeout(show, 10);
             return {
-                show: show,
                 close: close
             };
         };
