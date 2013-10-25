@@ -129,7 +129,6 @@
         setTimeout(show, 10);
 
         return {
-            show: show,
             close: close
         };
     };
