@@ -47,19 +47,12 @@
         type = types[tmp];
         type.name = tmp;
 
-        // Get icon
-        var icon = type.icon;
-
-        if(typeof options.icon !== 'undefined') {
-            icon = options.icon;
-        }
-
-        // Get timer
-        var duration = type.duration;
-
-        if(typeof options.duration !== 'undefined') {
-            duration = options.duration;
-        }
+        // Get options
+        options = $.extend({
+            icon: type.icon,
+            duration: type.duration,
+            frozen: false
+        }, options);
 
 
         // Show method
@@ -85,18 +78,21 @@
 
         var setTimer = function () {
             clearTimer();
-            timer = setTimeout(close, duration*1000);
+            timer = setTimeout(close, options.duration*1000);
         };
 
         // Init view
         var content = '';
 
         content += '<div class="notifyme-item ni-'+type.name+'">';
-        content += '    <span class="ni-close">&times;</span>';
 
-        if(icon) {
+        if(!options.frozen) {
+            content += '    <span class="ni-close">&times;</span>';
+        }
+
+        if(options.icon) {
             content += '    <span class="ni-icon">';
-            content += '        <i class="'+icon+'"></i>';
+            content += '        <i class="'+options.icon+'"></i>';
             content += '    </span>';
         }
 
@@ -118,7 +114,7 @@
         });
 
         // Set duration
-        if(duration) {
+        if(options.duration) {
             setTimer();
             $view.hover(clearTimer, setTimer);
         }
