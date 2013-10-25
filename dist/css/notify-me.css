@@ -150,21 +150,21 @@
 }
 .ni-error {
   color: white;
-  border-color: #b94a48;
-  background: #b94a48;
+  border-color: #b52b27;
+  background: #b52b27;
 }
 .ni-info {
   color: white;
-  border-color: #3488c0;
-  background: #3488c0;
+  border-color: #28a1c5;
+  background: #28a1c5;
 }
 .ni-warning {
   color: white;
-  border-color: #c09345;
-  background: #c09345;
+  border-color: #df8a13;
+  background: #df8a13;
 }
 .ni-success {
   color: white;
-  border-color: #468847;
-  background: #468847;
+  border-color: #3d8b3d;
+  background: #3d8b3d;
 }
