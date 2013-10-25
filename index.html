@@ -249,6 +249,80 @@
                 .write();
             </script>
 
+
+            <div class="page-header">
+                <h1>Options</h1>
+            </div>
+
+            <table id="options" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Comment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>stack</th>
+                        <td>string</td>
+                        <td nowrap>'top-right'</td>
+                        <td>Allows you to choose the stack which should see the notice.
+                            <br>
+                            <br>Currently there 7 stacks :
+                                <code>top-left</code>,
+                                <code>top</code>,
+                                <code>top-right</code>,
+                                <code>bottom-left</code>,
+                                <code>bottom</code>,
+                                <code>bottom-right</code> and
+                                <code>center</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>duration</th>
+                        <td>int<br>boolean</td>
+                        <td>used type duration</td>
+                        <td>You can specify the display duration by setting this options with a value in second.
+                            You can also set it to <code>false</code> to prevent the notice to automatically hide.
+                            If you do not set anything, the duration will be the duration of used type.
+                            <br>
+                            <br>The default type's durations are :
+
+                            <ul>
+                                <li><b>Info :</b> 5 seconds</li>
+                                <li><b>Success :</b> 5 seconds</li>
+                                <li><b>Warning :</b> 10 seconds</li>
+                                <li><b>Error :</b> infinite</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>icon</th>
+                        <td>string<br>boolean</td>
+                        <td>used type icon</td>
+                        <td>You can change the icon by setting this option. Icons are defined by the <code>class</code> attribute.
+                            <br>If you use
+                            <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> or
+                            <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">FontAwesome</a>,
+                            you can set the icon by using the classes provide by them.
+                            <br>If you want use you own icons system, you must declare each class in own stylesheet.
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>frozen</th>
+                        <td>boolean</td>
+                        <td nowrap>false</td>
+                        <td>Hide the close button
+                            <br>
+                            <br><b>Attention :</b> If you set <code>frozen</code> to <code>true</code> and <code>duration</code> to <code>false</code>
+                            the notice will stay all the time.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
             <div ng-app="notifyApp" ng-controller="MakeCtrl">
                 <div class="page-header">
                     <h1>Make your notify</h1>
@@ -294,6 +368,28 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-2 control-label">Icon</label>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" value="default" ng-model="icon" />
+                                Default
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="radio-inline">
+                                <input type="radio" value="nothing" ng-model="icon" />
+                                Nothing
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                                <input type="radio" value="custom" ng-model="icon" />
+                                <span style="display:inline-block">Custom :</span>
+                                <input class="form-control input-sm" type="text" ng-model="icon_value" ng-disabled="icon != 'custom'" style="display:inline-block" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-2 control-label">Duration</label>
                         <div class="col-md-2">
                             <label class="radio-inline">
@@ -312,6 +408,15 @@
                                 <input type="radio" value="custom" ng-model="duration" />
                                 <span style="display:inline-block">Custom :</span>
                                 <input class="form-control input-sm" type="text" ng-model="duration_value" ng-disabled="duration != 'custom'" style="display:inline-block" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Misc</label>
+                        <div class="col-md-10">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="frozen" />
+                                Frozen
                             </label>
                         </div>
                     </div>

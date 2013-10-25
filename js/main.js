@@ -100,6 +100,9 @@ app
         $scope.stack = null;
         $scope.duration = 'default';
         $scope.duration_value = 5;
+        $scope.icon = 'default';
+        $scope.icon_value = '';
+        $scope.frozen = false;
 
         $scope.toggleStack = function(stack) {
             $scope.stack = ($scope.stack == stack ? null : stack);
@@ -179,6 +182,24 @@ app
                             options.duration = parseInt(scope.duration_value);
                             break;
                     }
+                }
+
+                // If duration
+                if(scope.icon) {
+                    switch(scope.icon) {
+                        case 'nothing':
+                            options.icon = false;
+                            break;
+
+                        case 'custom':
+                            options.icon = scope.icon_value;
+                            break;
+                    }
+                }
+
+                // If frozen
+                if(scope.frozen) {
+                    options.frozen = scope.frozen;
                 }
 
                 if(!jQuery.isEmptyObject(options)) {

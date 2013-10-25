@@ -16,6 +16,15 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [{
+                    src: 'notify.me/dist/js/notify-me.js',
+                    dest: 'js/notify-me.js',
+                }, {
+                    src: 'notify.me/dist/css/notify-me.css',
+                    dest: 'css/notify-me.css',
+                }, {
+                    src: 'notify.me/dist/img/icons.png',
+                    dest: 'img/icons.png',
+                }, {
                     src: 'bower_components/angular/angular.min.js',
                     dest: 'js/angular.js',
                 }, {
@@ -24,15 +33,6 @@ module.exports = function(grunt) {
                 }, {
                     src: 'bower_components/jquery/jquery.min.js',
                     dest: 'js/jquery.js',
-                }, {
-                    src: 'bower_components/notify.me/dist/js/notify-me.js',
-                    dest: 'js/notify-me.js',
-                }, {
-                    src: 'bower_components/notify.me/dist/css/notify-me.css',
-                    dest: 'css/notify-me.css',
-                }, {
-                    src: 'bower_components/notify.me/dist/img/icons.png',
-                    dest: 'img/icons.png',
                 }, {
                     src: 'bower_components/highlightjs/highlight.pack.js',
                     dest: 'js/highlight.js',

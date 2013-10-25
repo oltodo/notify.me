@@ -5993,6 +5993,9 @@ td.visible-print {
   bottom: 10px;
   right: 10px;
 }
+#wrapper #options {
+  font-size: 0.8em;
+}
 header {
   padding: 70px 0;
   font-weight: 200;

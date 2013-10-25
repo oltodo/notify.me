@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.3.0
+ * notify.me 0.4.1
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -38,14 +38,11 @@
             var tmp = type;
             type = types[tmp];
             type.name = tmp;
-            var icon = type.icon;
-            if (typeof options.icon !== "undefined") {
-                icon = options.icon;
-            }
-            var duration = type.duration;
-            if (typeof options.duration !== "undefined") {
-                duration = options.duration;
-            }
+            options = $.extend({
+                icon: type.icon,
+                duration: type.duration,
+                frozen: false
+            }, options);
             var show = function() {
                 $view.addClass("ni-shown");
             };
@@ -63,14 +60,16 @@
             };
             var setTimer = function() {
                 clearTimer();
-                timer = setTimeout(close, duration * 1e3);
+                timer = setTimeout(close, options.duration * 1e3);
             };
             var content = "";
             content += '<div class="notifyme-item ni-' + type.name + '">';
-            content += '    <span class="ni-close">&times;</span>';
-            if (icon) {
+            if (!options.frozen) {
+                content += '    <span class="ni-close">&times;</span>';
+            }
+            if (options.icon) {
                 content += '    <span class="ni-icon">';
-                content += '        <i class="' + icon + '"></i>';
+                content += '        <i class="' + options.icon + '"></i>';
                 content += "    </span>";
             }
             if (options.title) {
@@ -84,7 +83,7 @@
             $view.find(".ni-close").on("click", function() {
                 close();
             });
-            if (duration) {
+            if (options.duration) {
                 setTimer();
                 $view.hover(clearTimer, setTimer);
             }
@@ -95,7 +94,6 @@
             }
             setTimeout(show, 10);
             return {
-                show: show,
                 close: close
             };
         };
