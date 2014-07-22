@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.4.1
+ * notify.me 0.4.2
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -172,7 +172,7 @@
                     throw new Error("Too much arguments");
                 }
                 var options = {};
-                for (var i in args) {
+                for (var i = 0; i < args.length; i++) {
                     var arg = args[i];
                     switch (typeof arg) {
                       case "string":
