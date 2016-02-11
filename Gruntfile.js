@@ -182,7 +182,6 @@ module.exports = function(grunt) {
             'exec:git_on_master',
             'exec:git_is_clean',
             'lint',
-            'test',
             'manifests:' + version,
             'build',
             'exec:git_add',

@@ -35,6 +35,13 @@
         'center': null
     };
 
+    var defaultOptions = {
+        icon: type.icon,
+        duration: type.duration,
+        frozen: false,
+        zIndex: 100
+    };
+
     // Notice class
     var notice = function (type, options) {
 
@@ -48,12 +55,7 @@
         type.name = tmp;
 
         // Get options
-        options = $.extend({
-            icon: type.icon,
-            duration: type.duration,
-            frozen: false,
-            zIndex: 100
-        }, options);
+        options = $.extend({}, defaultOptions, options);
 
 
         // Show method
@@ -206,6 +208,10 @@
 
 
     $.notify = function () {
+    };
+
+    $.notify.setDefaultOptions = function(options) {
+        defaultOptions = $.extend({}, defaultOptions, options);
     };
 
     $.notify.useBootstrap3 = function () {
