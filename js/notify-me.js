@@ -41,7 +41,8 @@
             options = $.extend({
                 icon: type.icon,
                 duration: type.duration,
-                frozen: false
+                frozen: false,
+                zIndex: 100
             }, options);
             var show = function() {
                 $view.addClass("ni-shown");
@@ -63,7 +64,7 @@
                 timer = setTimeout(close, options.duration * 1e3);
             };
             var content = "";
-            content += '<div class="notifyme-item ni-' + type.name + '">';
+            content += '<div class="notifyme-item ni-' + type.name + '" style="z-index: '+options.zIndex+'">';
             if (!options.frozen) {
                 content += '    <span class="ni-close">&times;</span>';
             }
