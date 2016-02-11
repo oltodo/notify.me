@@ -1,5 +1,5 @@
 /*!
- * notify.me v0.5.3
+ * notify.me 0.5.0
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
