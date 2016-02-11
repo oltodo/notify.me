@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.5.0
+ * notify.me 0.6.0
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -33,17 +33,18 @@
             "bottom-right": null,
             center: null
         };
+        var defaultOptions = {
+            icon: type.icon,
+            duration: type.duration,
+            frozen: false,
+            zIndex: 100
+        };
         var notice = function(type, options) {
             var stack = Stack.getStack(options.stack || "top-right"), timer = null;
             var tmp = type;
             type = types[tmp];
             type.name = tmp;
-            options = $.extend({
-                icon: type.icon,
-                duration: type.duration,
-                frozen: false,
-                zIndex: 100
-            }, options);
+            options = $.extend({}, defaultOptions, options);
             var show = function() {
                 $view.addClass("ni-shown");
             };
@@ -147,6 +148,9 @@
             }
         };
         $.notify = function() {};
+        $.notify.setDefaultOptions = function(options) {
+            defaultOptions = $.extend({}, defaultOptions, options);
+        };
         $.notify.useBootstrap3 = function() {
             types.info.icon = "glyphicon glyphicon-info-sign";
             types.warning.icon = "glyphicon glyphicon-exclamation-sign";
