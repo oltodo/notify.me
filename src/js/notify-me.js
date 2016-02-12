@@ -36,8 +36,6 @@
     };
 
     var defaultOptions = {
-        icon: type.icon,
-        duration: type.duration,
         frozen: false,
         zIndex: 100
     };
@@ -55,8 +53,10 @@
         type.name = tmp;
 
         // Get options
-        options = $.extend({}, defaultOptions, options);
-
+        options = $.extend({
+            icon: type.icon,
+            duration: type.duration
+        }, defaultOptions, options);
 
         // Show method
         var show = function () {
