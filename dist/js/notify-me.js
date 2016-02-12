@@ -1,5 +1,5 @@
 /*!
- * notify.me 0.6.0
+ * notify.me 0.6.1
  * https://github.com/oltodo/notify.me
  * Copyright 2013 Oltodo, Inc. and other contributors; Licensed MIT
  */
@@ -34,8 +34,6 @@
             center: null
         };
         var defaultOptions = {
-            icon: type.icon,
-            duration: type.duration,
             frozen: false,
             zIndex: 100
         };
@@ -44,7 +42,10 @@
             var tmp = type;
             type = types[tmp];
             type.name = tmp;
-            options = $.extend({}, defaultOptions, options);
+            options = $.extend({
+                icon: type.icon,
+                duration: type.duration
+            }, defaultOptions, options);
             var show = function() {
                 $view.addClass("ni-shown");
             };
